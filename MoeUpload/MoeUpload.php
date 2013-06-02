@@ -1,5 +1,4 @@
 <?php   
-//ugly but useful 
 //在上传界面增加三个字段
 
 if (!defined('MEDIAWIKI')) {
@@ -60,32 +59,32 @@ function onUploadFormInitDescriptor( &$descriptor ) {
 
 function BeforeProcessing( &$uploadFormObj ) {
 	if( $uploadFormObj->mRequest->getFileName( 'wpUploadFile' ) !== null ) {
-		$uploadFormObj->mAuthor = $uploadFormObj->mRequest->getText( 'wpAuthor' );
-		$uploadFormObj->mSrcUrl = $uploadFormObj->mRequest->getText( 'wpSrcUrl' );
-		$uploadFormObj->mCharName = $uploadFormObj->mRequest->getText( 'wpCharName' );
-		foreach (explode(" ", $uploadFormObj->mAuthor) as $author) {
-			if ($author != "") {
-				$uploadFormObj->mComment .= "[[分类:作者:$author]]";
-			}
-		}
+		$uploadFormObj->mAuthor            = $uploadFormObj->mRequest->getText( 'wpAuthor' );
+	  $uploadFormObj->mSrcUrl            = $uploadFormObj->mRequest->getText( 'wpSrcUrl' );
+	  $uploadFormObj->mCharName          = $uploadFormObj->mRequest->getText( 'wpCharName' );
+	  foreach (explode(" ", $uploadFormObj->mAuthor) as $author) {
+	      if ($author != "") {
+	          $uploadFormObj->mComment .= "[[分类:作者:$author]]";
+	      }
+	  }
 
-		foreach (explode(" ", $uploadFormObj->mCharName) as $catagory) {
-			if ($catagory != "") {
-				$uploadFormObj->mComment .= "[[分类:$catagory]]";
-			}
-		}
-		if ($uploadFormObj->mSrcUrl != "") {
-			$uploadFormObj->mComment .= "源地址:".$uploadFormObj->mSrcUrl;
-		}
-		if ($uploadFormObj->mRequest->getText( 'wpUploadDescription' ) != "") {
-			if ($uploadFormObj->mSrcUrl != "") {
-				$uploadFormObj->mComment .= " ";
-			}
-			$uploadFormObj->mComment .= $uploadFormObj->mRequest->getText( 'wpUploadDescription' );
-		}
+	  foreach (explode(" ", $uploadFormObj->mCharName) as $catagory) {
+	      if ($catagory != "") {
+	          $uploadFormObj->mComment .= "[[分类:$catagory]]";
+	      }
+	  }
+	  if ($uploadFormObj->mSrcUrl != "") {
+	      $uploadFormObj->mComment .= "源地址:".$uploadFormObj->mSrcUrl;
+	  }
+	  if ($uploadFormObj->mRequest->getText( 'wpUploadDescription' ) != "") {
+	      if ($uploadFormObj->mSrcUrl != "") {
+	          $uploadFormObj->mComment .= " ";
+	      }
+	      $uploadFormObj->mComment .= $uploadFormObj->mRequest->getText( 'wpUploadDescription' );
+	  }
 	}
 
-	return true;
+	return $uploadFormObj;
 }
 
 ?>
