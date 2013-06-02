@@ -11,7 +11,7 @@ $wgExtensionCredits['specialpage'][] = array(
 	'descriptionmsg' => 'moemoeQdec',
 	'author'         => array('March','nybux.tsui','XpAhH','baskice',),
 	'url'            => 'https://github.com/bydmm/MoeUpload',
-	'version'        => '1.1'
+	'version'        => '1.11'
 );
 
 $wgExtensionMessagesFiles['moemoeQ'] = dirname(__FILE__).'/'. 'MoeUpload.i18n.php';
@@ -62,6 +62,8 @@ function BeforeProcessing( &$uploadFormObj ) {
 		$uploadFormObj->mAuthor            = $uploadFormObj->mRequest->getText( 'wpAuthor' );
 	  $uploadFormObj->mSrcUrl            = $uploadFormObj->mRequest->getText( 'wpSrcUrl' );
 	  $uploadFormObj->mCharName          = $uploadFormObj->mRequest->getText( 'wpCharName' );
+	  $uploadFormObj->flagDesc           = false;
+	  $uploadFormObj->mUploadDescription = $uploadFormObj->mRequest->getText('wpUploadDescription');
 	  foreach (explode(" ", $uploadFormObj->mAuthor) as $author) {
 	      if ($author != "") {
 	          $uploadFormObj->mComment .= "[[分类:作者:$author]]";
@@ -76,11 +78,12 @@ function BeforeProcessing( &$uploadFormObj ) {
 	  if ($uploadFormObj->mSrcUrl != "") {
 	      $uploadFormObj->mComment .= "源地址:".$uploadFormObj->mSrcUrl;
 	  }
-	  if ($uploadFormObj->mRequest->getText( 'wpUploadDescription' ) != "") {
+	  if (!$uploadFormObj->flagDesc && $uploadFormObj->mUploadDescription != "") {
 	      if ($uploadFormObj->mSrcUrl != "") {
 	          $uploadFormObj->mComment .= " ";
 	      }
-	      $uploadFormObj->mComment .= $uploadFormObj->mRequest->getText( 'wpUploadDescription' );
+	      $uploadFormObj->mComment .= $uploadFormObj->mUploadDescription;
+	      $uploadFormObj->flagDesc = true;
 	  }
 	}
 
