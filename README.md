@@ -1,4 +1,5 @@
 ==已知bugs==
+
 Mediawiki1.20.5下
 
 **在点开【摘要：仅供管理使用】后，输入的内容会被重复添加至文件描述页面两次，需要尽快修复。bug描述参见这里：[http://zh.moegirl.org/index.php?title=Special:WikiForum&thread=148]
