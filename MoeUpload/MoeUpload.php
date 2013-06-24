@@ -10,7 +10,7 @@ $wgExtensionCredits['specialpage'][] = array(
 	'name'           => 'MoeUpload',
 	'descriptionmsg' => 'moemoeQdec',
 	'author'         => array('March','nybux.tsui','XpAhH','baskice',),
-	'url'            => 'https://github.com/bydmm/MoeUpload',
+	'url'            => 'https://github.com/moegirlwiki/MoeUpload',
 	'version'        => '1.11'
 );
 
