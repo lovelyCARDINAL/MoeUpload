@@ -62,8 +62,15 @@ function BeforeProcessing( &$uploadFormObj ) {
 		$uploadFormObj->mAuthor            = $uploadFormObj->mRequest->getText( 'wpAuthor' );
 	  $uploadFormObj->mSrcUrl            = $uploadFormObj->mRequest->getText( 'wpSrcUrl' );
 	  $uploadFormObj->mCharName          = $uploadFormObj->mRequest->getText( 'wpCharName' );
-	  $uploadFormObj->flagDesc           = false;
 	  $uploadFormObj->mUploadDescription = $uploadFormObj->mRequest->getText('wpUploadDescription');
+	  $suffix = "";
+	  if ($uploadFormObj->mUploadDescription != "" && $uploadFormObj->mComment == "") {
+	      if ($uploadFormObj->mSrcUrl != "") {
+	          $suffix .= " ";
+	      }
+	      $suffix .= $uploadFormObj->mUploadDescription;
+	  }
+
 	  foreach (explode(" ", $uploadFormObj->mAuthor) as $author) {
 	      if ($author != "") {
 	          $uploadFormObj->mComment .= "[[分类:作者:$author]]";
@@ -78,13 +85,7 @@ function BeforeProcessing( &$uploadFormObj ) {
 	  if ($uploadFormObj->mSrcUrl != "") {
 	      $uploadFormObj->mComment .= "源地址:".$uploadFormObj->mSrcUrl;
 	  }
-	  if (!$uploadFormObj->flagDesc && $uploadFormObj->mUploadDescription != "") {
-	      if ($uploadFormObj->mSrcUrl != "") {
-	          $uploadFormObj->mComment .= " ";
-	      }
-	      $uploadFormObj->mComment .= $uploadFormObj->mUploadDescription;
-	      $uploadFormObj->flagDesc = true;
-	  }
+	  $uploadFormObj->mComment .= $suffix;
 	}
 
 	return $uploadFormObj;
