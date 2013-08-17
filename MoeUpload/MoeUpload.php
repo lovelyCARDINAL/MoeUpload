@@ -58,8 +58,8 @@ function onUploadFormInitDescriptor( &$descriptor ) {
 }
 
 function BeforeProcessing( &$uploadFormObj ) {
-	if( $uploadFormObj->mRequest->getFileName( 'wpUploadFile' ) !== null ) {
-		$uploadFormObj->mAuthor            = $uploadFormObj->mRequest->getText( 'wpAuthor' );
+	if( $uploadFormObj->mRequest->getFileName( 'wpUploadFile' ) !== null || $uploadFormObj->mRequest->getFileName( 'wpUploadFileURL' ) !== null) {
+	  $uploadFormObj->mAuthor            = $uploadFormObj->mRequest->getText( 'wpAuthor' );
 	  $uploadFormObj->mSrcUrl            = $uploadFormObj->mRequest->getText( 'wpSrcUrl' );
 	  $uploadFormObj->mCharName          = $uploadFormObj->mRequest->getText( 'wpCharName' );
 	  $uploadFormObj->mUploadDescription = $uploadFormObj->mRequest->getText('wpUploadDescription');
