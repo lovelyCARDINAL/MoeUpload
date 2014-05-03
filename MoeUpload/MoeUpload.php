@@ -18,7 +18,30 @@ $wgExtensionMessagesFiles['moemoeQ'] = dirname(__FILE__).'/'. 'MoeUpload.i18n.ph
 
 $wgHooks['UploadFormInitDescriptor'][] = 'onUploadFormInitDescriptor';
 $wgHooks['UploadForm:BeforeProcessing'][] = 'BeforeProcessing';
-$wgHooks['BeforePageDisplay'][] = 'onBeforePageDisplay';
+
+$wgResourceModules['ext.MoeUpload'] = array(
+	// JavaScript and CSS styles. To combine multiple files, just list them as an array.
+	'scripts' => array( 'MoeUpload.js' ),
+	'styles' => 'MoeUpload.css',
+ 
+ 
+	// You need to declare the base path of the file paths in 'scripts' and 'styles'
+	'localBasePath' => __DIR__,
+	// ... and the base from the browser as well. For extensions this is made easy,
+	// you can use the 'remoteExtPath' property to declare it relative to where the wiki
+	// has $wgExtensionAssetsPath configured:
+	'remoteExtPath' => 'MoeUpload'
+);
+
+
+$wgHooks['UploadForm:initial'][] = 'MoeUploadUploadForminitial';
+
+
+function MoeUploadUploadForminitial ( $outputPage ) {
+global $wgOut;
+$wgOut -> addModules( 'ext.MoeUpload' );
+return true;
+}
 
 function onBeforePageDisplay( &$out, &$skin ) {
 	global $wgScriptPath;
