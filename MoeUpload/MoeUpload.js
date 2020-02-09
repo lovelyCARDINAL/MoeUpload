@@ -93,32 +93,6 @@ $(function() {
         var returnValue = true;
         var ifHaveFile = $($('input[name="wpSourceType"]:checked').val() == "url" ? "#wpUploadFileURL" : "#wpUploadFile").val() !== "";
         if (!ifHaveFile) {
-            //彩蛋
-            var body = $("body");
-            for (var i = 0; i < 20; i++) {
-                body.append(
-                    $("<div/>").text("萌").css({
-                        color: "#3FFC2E",
-                        "font-size": 54 + 30 * Math.random(),
-                        position: "fixed",
-                        left: screen.availWidth * Math.random(),
-                        top: screen.availHeight * Math.random()
-                    }).animate(
-                        //
-                        {
-                            opacity: 0.2,
-                            "font-size": 54 + 80 * Math.random(),
-                            left: screen.availWidth * Math.random(),
-                            top: -100 - Math.random() * 300
-                        },
-                        2000,
-                        "easeOutCirc",
-                        function() {
-                            this.remove();
-                        }
-                    )
-                );
-            }
             $("#mw-htmlform-source").parent().before(errorP.clone().addClass("uploadFormMsg").text(i18n("noFile")));
             returnValue = false;
         }
@@ -148,6 +122,33 @@ $(function() {
             scrollTop: uploadForm.find(".uploadFormMsg").first().offset().top - 48
         }, 0);
         uploadForm.find(".uploadFormMsg");
+        if (!returnValue) {
+            var body = $("body");
+            for (var i = 0; i < 20; i++) {
+                body.append(
+                    $("<div/>").text("萌").css({
+                        color: "#3FFC2E",
+                        "font-size": 54 + 30 * Math.random(),
+                        position: "fixed",
+                        left: screen.availWidth * Math.random(),
+                        top: screen.availHeight * Math.random()
+                    }).animate(
+                        //
+                        {
+                            opacity: 0.2,
+                            "font-size": 54 + 80 * Math.random(),
+                            left: screen.availWidth * Math.random(),
+                            top: -100 - Math.random() * 300
+                        },
+                        2000,
+                        "easeOutCirc",
+                        function() {
+                            this.remove();
+                        }
+                    )
+                );
+            }
+        }
         return returnValue;
     });
 });
