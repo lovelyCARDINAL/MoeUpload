@@ -82,7 +82,6 @@ $(function() {
             return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
         }
     });
-    $("<style> .inputError { box-shadow: red 0px 0px 8px; border: 1px solid red; padding: 2px 1px; }</style>").appendTo("head");
     var uploadForm = $("#mw-upload-form");
     uploadForm.on("submit", function() {
         uploadForm.find(".inputError").removeClass("inputError");
