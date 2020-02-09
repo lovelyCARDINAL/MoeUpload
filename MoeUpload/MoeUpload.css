@@ -4,14 +4,20 @@
  *                         http://www.mediawiki.org/wiki/Manual:Collapsible_tables.
  *  Maintainers: [[en:User:R. Koot]]
  */
- 
+
 table.collapsed tr.collapsible {
-        display: none;
+    display: none;
 }
- 
-.collapseButton {               /* 'show'/'hide' buttons created dynamically by the             */
-        float: right;           /* CollapsibleTables JavaScript in [[MediaWiki:Common.js]] */
-        font-weight: normal;    /* are styled here so they can be customised.             */
-        text-align: right;
-        width: auto;
+
+.collapseButton {
+    float: right;
+    font-weight: normal;
+    text-align: right;
+    width: auto;
+}
+
+.inputError {
+    box-shadow: red 0px 0px 8px;
+    border: 1px solid red;
+    padding: 2px 1px;
 }
