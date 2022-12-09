@@ -17,7 +17,7 @@ $messages['zh-hant'] = array(
 	'moemoeQdec' => '[http://zh.moegirl.org/ 萌娘百科]上傳檔案頁面增強插件'
 );
 
-$messages['zh-hant'] = array(
+$messages['zh-hk'] = array(
 	'moemoeQCharName' => '人物名',
 	'moemoeQAuthor' => '作者',
 	'moemoeQSrcUrl' => '源地址',
