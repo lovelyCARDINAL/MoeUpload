@@ -1,20 +1,20 @@
 $(function() {
     var i18nStrings = {
         "zh-hans": {
-            forManagementOnly: "仅供管理使用",
-            pageInsteadOfImg: "建议您在此处输入页面地址，而非文件链接。",
-            sameAsSourceURL: "您输入的源地址与文件的来源地址相同，建议您在此处输入页面地址，而非文件链接。",
-            noFile: "您既未选择文件也未输入来源地址，请检查。",
-            noDetail: "＞_＜ 【人物名、作者名、源地址】不能全部为空~！",
-            haveSymbol: "＞_＜ 【人物名、作者名、源地址】不能包含特殊符号~！请不要写多余的内容 [·~。（）()!@#$%^&*]",
+            forManagementOnly: "仅供文件管理使用",
+            pageInsteadOfImg: "请您在此处输入页面网址，而非文件链接。",
+            sameAsSourceURL: "您输入的源地址与文件的来源网址相同，建议您在此处输入页面网址，而非文件链接。",
+            noFile: "您既未选择本地文件也未输入来源网址，请检查。",
+            noDetail: "＞_＜ 【人物名、作者名、源地址】不能全部为空～！",
+            haveSymbol: "＞_＜ 【人物名、作者名、源地址】不能包含特殊符号(．‧•･・〜;\[]{})，请不要写多余的内容～！",
         },
         "zh-hant": {
-            forManagementOnly: "僅供管理使用",
-            pageInsteadOfImg: "建議您在此處輸入頁面地址，而非檔案連結。",
-            sameAsSourceURL: "您輸入的源地址與檔案的來源 URL 相同，建議您在此處輸入頁面地址，而非檔案連結。",
-            noFile: "您既未選擇檔案也未輸入地址，請檢查。",
-            noDetail: "＞_＜ 【人物名、作者名、源地址】不能全部為空~！",
-            haveSymbol: "＞_＜ 【人物名、作者名、源地址】不能包含特殊符號~！請不要寫多餘的內容 [·~。（）()!@#$%^&*]",
+            forManagementOnly: "僅供檔案管理使用",
+            pageInsteadOfImg: "請您在此處輸入頁面網址，而非檔案連結。",
+            sameAsSourceURL: "您輸入的源地址與檔案的來源網址相同，建議您在此處輸入頁面網址，而非檔案連結。",
+            noFile: "您既未選擇本地檔案也未輸入來源網址，請檢查。",
+            noDetail: "＞_＜ 【人物名、作者名、源地址】不能全部為空～！",
+            haveSymbol: "＞_＜ 【人物名、作者名、源地址】不能包含特殊符號(．‧•･・〜;\[]{})，請不要寫多餘的內容～！",
         },
         "en": {
             forManagementOnly: "For management only",
@@ -22,7 +22,7 @@ $(function() {
             sameAsSourceURL: "The Origin Source URL you entered is the same as the Source URL above, we recommend that you enter the page address here instead of a link to the file.",
             noFile: "You have neither selected a file nor entered an source URL. Please check.",
             noDetail: "＞_＜ Character name, Author, Origin Source URL cannot all be empty~!",
-            haveSymbol: "＞_＜ Character name, Author, Origin Source URL cannot contain special symbols~! [·~。（）()!@#$%^&*]"
+            haveSymbol: "＞_＜ Character name, Author, Origin Source URL cannot contain special symbols~! (．‧•･・〜;\[]{})"
         }
     };
     var zhLanguage = {
@@ -70,13 +70,13 @@ $(function() {
         var str = wpSrcUrl.val().trim();
         if (/\.(?:ogg|ogv|oga|flac|opus|wav|webm|mp3|png|gif|jpg|jpeg|webp|svg|pdf|ppt|jp2|doc|docx|xls|xlsx|psd|sai|swf|mp4)$/i.test(str)) {
             upLoadFileUrlmsg.show().find("td").text(i18n("pageInsteadOfImg"));
-        } else if ($("#wpUploadFileURL").val() === str) {
+        } else if ($("#wpUploadFileURL").val() === str && str.length > 0) {
             upLoadFileUrlmsg.show().find("td").text(i18n("sameAsSourceURL"));
         } else {
             upLoadFileUrlmsg.hide();
         }
     });
-    /* XpAhH同学写的上传页面检测，未写注释禁止上传。管理员，巡查员不检测 */
+    /* 未写注释禁止上传。管理员、STAFF不检测 */
     $.extend($.easing, {
         easeOutCirc: function(x, t, b, c, d) {
             return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
@@ -87,7 +87,7 @@ $(function() {
         uploadForm.find(".inputError").removeClass("inputError");
         uploadForm.find(".uploadFormMsg").remove();
         var wgUserGroups = mw.config.get("wgUserGroups");
-        if (wgUserGroups.incldes("sysop") || wgUserGroups.incldes("patroller") || mw.util.getParamValue("disableUploadCheck") === "true") {
+        if (wgUserGroups.incldes("sysop") || wgUserGroups.incldes("staff") || mw.util.getParamValue("disableUploadCheck") === "true") {
             return true;
         }
         var returnValue = true;
@@ -106,7 +106,7 @@ $(function() {
             returnValue = false;
         }
         //符号
-        var haveSymbol = $("#wpCharName, #wpAuthor, #wpSrcUrl").filter(function() { return /[·~。（）()!@#$%^&*]/.test($(this).val()); });
+        var haveSymbol = $("#wpCharName, #wpAuthor, #wpSrcUrl").filter(function() { return /[．‧•･・〜;\\\[\]\{\}]/.test($(this).val()); });
         if (haveSymbol.length > 0) {
             haveSymbol.addClass("inputError");
             var haveSymbolRow = uploadFormMsgRow.clone();
